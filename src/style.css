@@ -26,6 +26,10 @@ li {
   text-transform: capitalize;
 }
 
+.weather-icon {
+  font-size: 10px;
+}
+
 footer {
   text-align: center;
 }

@@ -31,6 +31,10 @@ function showCurrent(response) {
   let conditionDescription = document.querySelector("#condition");
   conditionDescription.innerHTML = response.data.condition.description;
 
+  let weatherIcon = document.querySelector("#weather-icon");
+  weatherIcon.setAttribute("src", response.data.condition.icon_url);
+  weatherIcon.setAttribute("alt", response.data.condition.description);
+
   let windSpeed = document.querySelector("#wind-speed");
   windSpeed.innerHTML = Math.round(response.data.wind.speed);
 
