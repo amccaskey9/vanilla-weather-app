@@ -45,10 +45,23 @@ function showCurrent(response) {
   date.innerHTML = formatDate(response.data.time * 1000);
 }
 
-let apiKey = "f08a6a7fd3e944f30od1c4cc4b5b3tf6";
-let apiEndpoint = "https://api.shecodes.io/weather/v1/";
-let units = "metric";
-let apiUrl = `${apiEndpoint}current?query=Houston&key=${apiKey}&units=${units}`;
-apiUrl = apiUrl.replace(" ", "+");
+function searchCity(city) {
+  let apiKey = "f08a6a7fd3e944f30od1c4cc4b5b3tf6";
+  let apiEndpoint = "https://api.shecodes.io/weather/v1/";
+  let units = "metric";
+  let apiUrl = `${apiEndpoint}current?query=${city}&key=${apiKey}&units=${units}`;
+  apiUrl = apiUrl.replace(" ", "+");
 
-axios.get(apiUrl).then(showCurrent);
+  axios.get(apiUrl).then(showCurrent);
+}
+
+function search(event) {
+  event.preventDefault();
+  let city = document.querySelector("#city-input");
+  searchCity(city.value);
+}
+
+searchCity("Houston");
+
+let form = document.querySelector("#search");
+form.addEventListener("submit", search);
