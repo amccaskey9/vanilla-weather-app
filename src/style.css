@@ -17,6 +17,20 @@ li {
   padding: 0;
 }
 
+.weather-app .current-temp {
+  font-size: 23px;
+}
+
+.weather-app .units {
+  align-self: flex-start;
+}
+
+.weather-app .active {
+  color: #000;
+  cursor: default;
+  text-decoration: none;
+}
+
 .condition {
   text-transform: capitalize;
 }
