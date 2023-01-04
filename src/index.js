@@ -21,6 +21,30 @@ function formatDate(timestamp) {
   return `${day} ${hours}:${minutes}`;
 }
 
+function showForecast() {
+  let forecast = document.querySelector("#forecast");
+
+  let forecastHTML = `<div class="row">`;
+  let days = ["Sun", "Mon", "Tues", "Wed", "Thu"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="row-6">
+        <span class="weather-forecast-day">${day}</span>
+        <img 
+        src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png" 
+        alt=""
+        class="forecast-icon">
+        <span class="high-temp">10°</span> |
+        <span class="low-temp">-3°</span>
+      </div>`;
+
+    forecastHTML = forecastHTML + `</div>`;
+
+    forecast.innerHTML = forecastHTML;
+  });
+}
+
 function showCurrent(response) {
   let cityName = document.querySelector("#city");
   cityName.innerHTML = response.data.city;
@@ -92,3 +116,4 @@ let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", showCelsiusTemp);
 
 searchCity("Houston");
+showForecast();
