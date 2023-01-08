@@ -21,23 +21,40 @@ function formatDate(timestamp) {
   return `${day} ${hours}:${minutes}`;
 }
 
-function showForecast() {
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let weekdays = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+  let day = date.getDay();
+
+  return weekdays[day];
+}
+
+function showForecast(response) {
+  let forecastData = response.data.daily;
+  forecastData.shift();
+  console.log(forecastData);
+
   let forecast = document.querySelector("#forecast");
 
   let forecastHTML = `<div class="row">`;
-  let days = ["Sun", "Mon", "Tues", "Wed", "Thu"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="row-6">
-        <span class="weather-forecast-day">${day}</span>
+  forecastData.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="row-6">
+        <span class="weather-forecast-day">${formatDay(forecastDay.time)}</span>
         <img 
-        src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png" 
-        alt=""
+        src="${forecastDay.condition.icon_url}" 
+        alt="${forecastDay.condition.description}"
         class="forecast-icon">
-        <span class="high-temp">10°</span> |
-        <span class="low-temp">-3°</span>
+        <span class="high-temp">${Math.round(
+          forecastDay.temperature.maximum
+        )}°</span> |
+        <span class="low-temp">${Math.round(
+          forecastDay.temperature.minimum
+        )}°</span>
       </div>`;
+    }
 
     forecastHTML = forecastHTML + `</div>`;
 
@@ -54,7 +71,7 @@ function getForecast(coordinates) {
   let apiUrl = `${apiEndpoint}lon=${lon}&lat=${lat}&key=${apiKey}&units=${units}`;
 
   console.log(apiUrl);
-  //axios.get(apiUrl).then(showForecast)
+  axios.get(apiUrl).then(showForecast);
 }
 
 function showCurrent(response) {
