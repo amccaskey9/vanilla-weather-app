@@ -21,10 +21,6 @@ li {
   font-size: 23px;
 }
 
-.weather-app .units {
-  align-self: flex-start;
-}
-
 .weather-app .active {
   color: #000;
   cursor: default;

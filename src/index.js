@@ -32,7 +32,6 @@ function formatDay(timestamp) {
 function showForecast(response) {
   let forecastData = response.data.daily;
   forecastData.shift();
-  console.log(forecastData);
 
   let forecast = document.querySelector("#forecast");
 
@@ -67,10 +66,9 @@ function getForecast(coordinates) {
   let apiEndpoint = `https://api.shecodes.io/weather/v1/forecast?`;
   let lon = coordinates.longitude;
   let lat = coordinates.latitude;
-  let units = "metric";
+  let units = "imperial";
   let apiUrl = `${apiEndpoint}lon=${lon}&lat=${lat}&key=${apiKey}&units=${units}`;
 
-  console.log(apiUrl);
   axios.get(apiUrl).then(showForecast);
 }
 
@@ -105,7 +103,7 @@ function showCurrent(response) {
 function searchCity(city) {
   let apiKey = "f08a6a7fd3e944f30od1c4cc4b5b3tf6";
   let apiEndpoint = "https://api.shecodes.io/weather/v1/";
-  let units = "metric";
+  let units = "imperial";
   let apiUrl = `${apiEndpoint}current?query=${city}&key=${apiKey}&units=${units}`;
   apiUrl = apiUrl.replace(" ", "+");
 
@@ -118,33 +116,8 @@ function search(event) {
   searchCity(city.value);
 }
 
-function showFahrenheitTemp(event) {
-  event.preventDefault();
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-  let temperature = document.querySelector("#current-temp");
-  let fahrenheitTemp = (celsiusTemp * 9) / 5 + 32;
-  temperature.innerHTML = Math.round(fahrenheitTemp);
-}
-
-function showCelsiusTemp(event) {
-  event.preventDefault();
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-  let temperature = document.querySelector("#current-temp");
-  temperature.innerHTML = Math.round(celsiusTemp);
-}
-
-let celsiusTemp = null;
-
 let form = document.querySelector("#search");
 form.addEventListener("submit", search);
-
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", showFahrenheitTemp);
-
-let celsiusLink = document.querySelector("#celsius-link");
-celsiusLink.addEventListener("click", showCelsiusTemp);
 
 searchCity("Houston");
 showForecast();
