@@ -45,6 +45,18 @@ function showForecast() {
   });
 }
 
+function getForecast(coordinates) {
+  let apiKey = "f08a6a7fd3e944f30od1c4cc4b5b3tf6";
+  let apiEndpoint = `https://api.shecodes.io/weather/v1/forecast?`;
+  let lon = coordinates.longitude;
+  let lat = coordinates.latitude;
+  let units = "metric";
+  let apiUrl = `${apiEndpoint}lon=${lon}&lat=${lat}&key=${apiKey}&units=${units}`;
+
+  console.log(apiUrl);
+  //axios.get(apiUrl).then(showForecast)
+}
+
 function showCurrent(response) {
   let cityName = document.querySelector("#city");
   cityName.innerHTML = response.data.city;
@@ -69,6 +81,8 @@ function showCurrent(response) {
 
   let date = document.querySelector("#date");
   date.innerHTML = formatDate(response.data.time * 1000);
+
+  getForecast(response.data.coordinates);
 }
 
 function searchCity(city) {
